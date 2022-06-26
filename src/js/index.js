@@ -8,6 +8,13 @@ function App() {
 
   // 메뉴의 입력 받기
   $('#espresso-menu-name').addEventListener('keypress', (e) => {
+    if (e.key !== 'Enter') {
+      return;
+    }
+    if ($('#espresso-menu-name').value === '') {
+      alert('값을 입력해주세요.');
+      return;
+    }
     if (e.key === 'Enter') {
       // 엔터를 누르면
       const espressoMenuName = $('#espresso-menu-name').value;
