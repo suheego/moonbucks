@@ -6,6 +6,11 @@ function App() {
     e.preventDefault();
   });
 
+  const updateMenuCount = () => {
+    const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
+    $('.menu-count').innerText = `총 ${menuCount}개`;
+  } 
+
   const addMenuName = () => {
     const espressoMenuName = $('#espresso-menu-name').value;
     const menuItemTemplate = (espressoMenuName) => {
@@ -33,8 +38,7 @@ function App() {
     );
 
     // 입력된 메뉴 총 갯수
-    const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
-    $('.menu-count').innerText = `총 ${menuCount}개`;
+    updateMenuCount();
     $('#espresso-menu-name').value = '';
   };
 
@@ -64,7 +68,6 @@ function App() {
   // 메뉴 수정
   $('#espresso-menu-list').addEventListener('click', (e) => {
     if (e.target.classList.contains("menu-edit-button")) {
-      
       const $menuName = e.target.closest('li').querySelector('.menu-name') 
       const updatedMenuName = prompt('메뉴 이름을 수정해주세요.', $menuName.innerText)
 
@@ -76,7 +79,18 @@ function App() {
       $menuName.innerText = updatedMenuName;
 
     }
-  })
+  });
+
+  // 메뉴 삭제
+  $('#espresso-menu-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains("menu-remove-button")) {
+      if (confirm('정말 메뉴를 삭제하시겠습니까?')) {
+        e.target.closest('li').remove();
+        updateMenuCount();
+      }
+    }
+  });
+
 }
 
 App();
