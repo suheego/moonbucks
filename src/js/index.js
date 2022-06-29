@@ -40,6 +40,11 @@ function App() {
 
   // 메뉴의 입력 받기
   $('#espresso-menu-submit-button').addEventListener('click', () => {
+    if ($('#espresso-menu-name').value === '') {
+      alert('값을 입력해주세요.');
+      return;
+    }
+
     addMenuName();
   });
 
