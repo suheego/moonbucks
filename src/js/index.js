@@ -44,7 +44,7 @@ function App() {
       alert('값을 입력해주세요.');
       return;
     }
-
+    
     addMenuName();
   });
 
@@ -60,6 +60,23 @@ function App() {
       addMenuName();
     }
   });
+
+  // 메뉴 수정
+  $('#espresso-menu-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains("menu-edit-button")) {
+      
+      const $menuName = e.target.closest('li').querySelector('.menu-name') 
+      const updatedMenuName = prompt('메뉴 이름을 수정해주세요.', $menuName.innerText)
+
+      if (updatedMenuName === '') {
+        alert('값을 입력해주세요.');
+        return;
+      }
+
+      $menuName.innerText = updatedMenuName;
+
+    }
+  })
 }
 
 App();
