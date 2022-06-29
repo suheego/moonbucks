@@ -11,6 +11,13 @@ function App() {
     $('.menu-count').innerText = `총 ${menuCount}개`;
   } 
 
+  const checkMenuName = (name) => {
+    if (name === '') {
+      alert('값을 입력해주세요.');
+      return;
+    }  
+  }
+
   const addMenuName = () => {
     const espressoMenuName = $('#espresso-menu-name').value;
     const menuItemTemplate = (espressoMenuName) => {
@@ -45,12 +52,7 @@ function App() {
   const updatedMenuName = (e) => {
     const $menuName = e.target.closest('li').querySelector('.menu-name') 
     const updatedMenuName = prompt('메뉴 이름을 수정해주세요.', $menuName.innerText)
-
-    if (updatedMenuName === '') {
-      alert('값을 입력해주세요.');
-      return;
-    }
-
+    checkMenuName(updatedMenuName);
     $menuName.innerText = updatedMenuName;
   }
 
@@ -63,11 +65,7 @@ function App() {
 
   // 메뉴의 입력 받기
   $('#espresso-menu-submit-button').addEventListener('click', () => {
-    if ($('#espresso-menu-name').value === '') {
-      alert('값을 입력해주세요.');
-      return;
-    }
-    
+    checkMenuName($('#espresso-menu-name').value);
     addMenuName();
   });
 
@@ -75,10 +73,7 @@ function App() {
     if (e.key !== 'Enter') {
       return;
     }
-    if ($('#espresso-menu-name').value === '') {
-      alert('값을 입력해주세요.');
-      return;
-    }
+    checkMenuName($('#espresso-menu-name').value);
     if (e.key === 'Enter') {
       addMenuName();
     }
