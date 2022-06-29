@@ -54,6 +54,13 @@ function App() {
     $menuName.innerText = updatedMenuName;
   }
 
+  const removeMenuName = (e) => {
+    if (confirm('정말 메뉴를 삭제하시겠습니까?')) {
+      e.target.closest('li').remove();
+      updateMenuCount();
+    }
+  }
+
   // 메뉴의 입력 받기
   $('#espresso-menu-submit-button').addEventListener('click', () => {
     if ($('#espresso-menu-name').value === '') {
@@ -87,10 +94,7 @@ function App() {
   // 메뉴 삭제
   $('#espresso-menu-list').addEventListener('click', (e) => {
     if (e.target.classList.contains("menu-remove-button")) {
-      if (confirm('정말 메뉴를 삭제하시겠습니까?')) {
-        e.target.closest('li').remove();
-        updateMenuCount();
-      }
+      removeMenuName(e);
     }
   });
 
