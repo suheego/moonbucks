@@ -54,7 +54,10 @@ function App() {
       '메뉴 이름을 수정해주세요.',
       $menuName.innerText
     );
-    checkMenuName(updatedMenuName);
+    if (updatedMenuName === '') {
+      alert('메뉴 이름을 입력해주세요.');
+      return;
+    }
     $menuName.innerText = updatedMenuName;
   };
 
