@@ -1,6 +1,17 @@
 const $ = (selector) => document.querySelector(selector);
 
+const store = {
+  setLocalStorage: (menu) => {
+    localStorage.setItem('menu', JSON.stringify(menu));
+  },
+  getLocalStorage: () => {
+    localStorage.getItem('menu');
+  },
+};
+
 function App() {
+  this.menu = [];
+
   const updateMenuCount = () => {
     const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
     $('.menu-count').innerText = `총 ${menuCount}개`;
@@ -8,10 +19,13 @@ function App() {
 
   const addMenuName = () => {
     const espressoMenuName = $('#espresso-menu-name').value;
-    const menuItemTemplate = (espressoMenuName) => {
-      return `
+    this.menu.push({ name: espressoMenuName });
+    store.setLocalStorage(this.menu);
+    const template = this.menu
+      .map((item) => {
+        return `
       <li class="menu-list-item d-flex items-center py-2">
-      <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
+      <span class="w-100 pl-2 menu-name">${item.name}</span>
       <button
           type="button"
           class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
@@ -26,12 +40,9 @@ function App() {
       </button>
       </li>
       `;
-    };
-    $('#espresso-menu-list').insertAdjacentHTML(
-      'beforeend',
-      menuItemTemplate(espressoMenuName)
-    );
-
+      })
+      .join('');
+    $('#espresso-menu-list').innerHTML = template;
     // 입력된 메뉴 총 갯수
     updateMenuCount();
     $('#espresso-menu-name').value = '';
