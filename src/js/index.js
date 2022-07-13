@@ -34,6 +34,16 @@ function App() {
         <li data-menu-id="${index}" class="menu-list-item d-flex items-center py-2">
         <span class="w-100 pl-2 menu-name">${menuItem.name}</span>
         <button
+        type="button"
+        class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button"
+        >
+          품절
+        </button>
+        <button
+          type="button"
+          class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
+        >
+        <button
             type="button"
             class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
         >
@@ -130,15 +140,13 @@ function App() {
     }
   });
 
-  // 메뉴 수정
   $('#menu-list').addEventListener('click', (e) => {
+    // 메뉴 수정
     if (e.target.classList.contains('menu-edit-button')) {
       updatedMenuName(e);
     }
-  });
 
-  // 메뉴 삭제
-  $('#menu-list').addEventListener('click', (e) => {
+    // 메뉴 삭제
     if (e.target.classList.contains('menu-remove-button')) {
       removeMenuName(e);
     }
