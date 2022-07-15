@@ -1,4 +1,4 @@
-const $ = (selector) => document.querySelector(selector);
+import { $ } from './utils/dom.js';
 
 const store = {
   setLocalStorage: (menu) => {
