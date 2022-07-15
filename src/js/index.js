@@ -25,6 +25,7 @@ function App() {
     }
     console.log(this);
     render();
+    initEventListener();
   };
 
   const render = () => {
@@ -112,62 +113,65 @@ function App() {
     render();
   };
 
-  // Form 태그가 자동으로 전송되는 것을 막아줌
-  $('#menu-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-  });
+  const initEventListener = () => {
+    // Form 태그가 자동으로 전송되는 것을 막아줌
+    $('#menu-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
 
-  // 메뉴의 입력 받기
-  $('#menu-submit-button').addEventListener('click', () => {
-    if ($('#menu-name').value === '') {
-      alert('값을 입력해주세요.');
-      return;
-    }
-    addMenuName();
-  });
-
-  $('#menu-name').addEventListener('keypress', (e) => {
-    if (e.key !== 'Enter') {
-      return;
-    }
-    if ($('#menu-name').value === '') {
-      alert('값을 입력해주세요.');
-      return;
-    }
-    if (e.key === 'Enter') {
+    // 메뉴의 입력 받기
+    $('#menu-submit-button').addEventListener('click', () => {
+      if ($('#menu-name').value === '') {
+        alert('값을 입력해주세요.');
+        return;
+      }
       addMenuName();
-    }
-  });
+    });
 
-  $('nav').addEventListener('click', (e) => {
-    const isCategoryButton = e.target.classList.contains('cafe-category-name');
-    if (isCategoryButton) {
-      const categoryName = e.target.dataset.categoryName;
-      this.currentCategory = categoryName;
-      $('#category-title').innerHTML = `${e.target.innerText} 메뉴 관리`;
-      render();
-    }
-  });
+    $('#menu-name').addEventListener('keypress', (e) => {
+      if (e.key !== 'Enter') {
+        return;
+      }
+      if ($('#menu-name').value === '') {
+        alert('값을 입력해주세요.');
+        return;
+      }
+      if (e.key === 'Enter') {
+        addMenuName();
+      }
+    });
 
-  $('#menu-list').addEventListener('click', (e) => {
-    // 메뉴 수정
-    if (e.target.classList.contains('menu-edit-button')) {
-      updatedMenuName(e);
-      return;
-    }
+    $('nav').addEventListener('click', (e) => {
+      const isCategoryButton =
+        e.target.classList.contains('cafe-category-name');
+      if (isCategoryButton) {
+        const categoryName = e.target.dataset.categoryName;
+        this.currentCategory = categoryName;
+        $('#category-title').innerHTML = `${e.target.innerText} 메뉴 관리`;
+        render();
+      }
+    });
 
-    // 메뉴 삭제
-    if (e.target.classList.contains('menu-remove-button')) {
-      removeMenuName(e);
-      return;
-    }
+    $('#menu-list').addEventListener('click', (e) => {
+      // 메뉴 수정
+      if (e.target.classList.contains('menu-edit-button')) {
+        updatedMenuName(e);
+        return;
+      }
 
-    // 품절 상태
-    if (e.target.classList.contains('menu-sold-out-button')) {
-      soldOutMenu(e);
-      return;
-    }
-  });
+      // 메뉴 삭제
+      if (e.target.classList.contains('menu-remove-button')) {
+        removeMenuName(e);
+        return;
+      }
+
+      // 품절 상태
+      if (e.target.classList.contains('menu-sold-out-button')) {
+        soldOutMenu(e);
+        return;
+      }
+    });
+  };
 }
 
 const app = new App();
