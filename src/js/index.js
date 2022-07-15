@@ -32,7 +32,9 @@ function App() {
       .map((menuItem, index) => {
         return `
         <li data-menu-id="${index}" class="menu-list-item d-flex items-center py-2">
-        <span class="w-100 pl-2 menu-name">${menuItem.name}</span>
+        <span class="w-100 pl-2 menu-name ${
+          menuItem.soldOut ? 'sold-out' : ''
+        }">${menuItem.name}</span>
         <button
         type="button"
         class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button"
@@ -103,6 +105,14 @@ function App() {
     }
   };
 
+  const soldOutMenu = (e) => {
+    const menuId = e.target.closest('li').dataset.menuId;
+    this.menu[this.currentCategory][menuId].soldOut =
+      !this.menu[this.currentCategory][menuId].soldOut;
+    store.setLocalStorage(this.menu);
+    render();
+  };
+
   // Form 태그가 자동으로 전송되는 것을 막아줌
   $('#menu-form').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -144,11 +154,19 @@ function App() {
     // 메뉴 수정
     if (e.target.classList.contains('menu-edit-button')) {
       updatedMenuName(e);
+      return;
     }
 
     // 메뉴 삭제
     if (e.target.classList.contains('menu-remove-button')) {
       removeMenuName(e);
+      return;
+    }
+
+    // 품절 상태
+    if (e.target.classList.contains('menu-sold-out-button')) {
+      soldOutMenu(e);
+      return;
     }
   });
 }
