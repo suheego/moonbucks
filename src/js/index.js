@@ -15,7 +15,6 @@ function App() {
     if (store.getLocalStorage()) {
       this.menu = store.getLocalStorage();
     }
-    console.log(this);
     render();
     initEventListener();
   };
